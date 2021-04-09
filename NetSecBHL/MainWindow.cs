@@ -17,6 +17,11 @@ namespace NetSecBHL
             InitializeComponent();
             
         }
+        private List<DateTime> HolidayList = new List<DateTime>();
+        public DateTime Today = new DateTime()
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

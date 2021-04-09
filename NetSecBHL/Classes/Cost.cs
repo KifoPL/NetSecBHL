@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace NetSecBHL
 {
-    class Cost
+    static class Cost
     {
-        private int totalCost;
-        private int totalIncome;
+        private static int totalCost;
+        private static int totalIncome;
 
-        public int TotalCost { get => totalCost; set => totalCost = value; }
-        public int TotalIncome { get => totalIncome; set => totalIncome = value; }
+        public static int TotalCost { get => totalCost; set => totalCost = value; }
+        public static int TotalIncome { get => totalIncome; set => totalIncome = value; }
     }
+
+
 }
