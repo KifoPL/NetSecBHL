@@ -37,8 +37,7 @@ namespace NetSecBHL
             // 
             this.monthCalendar1.BackColor = System.Drawing.Color.Coral;
             this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 1);
-            this.monthCalendar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.monthCalendar1.Location = new System.Drawing.Point(0, 0);
+            this.monthCalendar1.Location = new System.Drawing.Point(18, 18);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.ShowWeekNumbers = true;
             this.monthCalendar1.TabIndex = 0;
@@ -47,7 +46,7 @@ namespace NetSecBHL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 450);
+            this.ClientSize = new System.Drawing.Size(914, 420);
             this.Controls.Add(this.monthCalendar1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";

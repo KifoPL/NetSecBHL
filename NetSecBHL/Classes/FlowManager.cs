@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace NetSecBHL.Classes
 {
-    class FlowManager
+    static class FlowManager
     {
+
+        static void update()
+        {
+            
+        }
+        
     }
 }

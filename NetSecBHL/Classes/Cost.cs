@@ -14,6 +14,16 @@ namespace NetSecBHL
         public static int TotalCost { get => totalCost; set => totalCost = value; }
         public static int TotalIncome { get => totalIncome; set => totalIncome = value; }
     }
+    public struct Price
+    {
+        public int cost;
+        public int income;
 
+        public Price(int cost, int income)
+        {
+            this.cost = cost;
+            this.income = income;
+        }
+    }
 
 }

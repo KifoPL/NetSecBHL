@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace NetSecBHL.Data
 {
-    class PhotovoltaicsEfficiencyData
+    static class PhotovoltaicsEfficiencyData
     {
+        
     }
 }
