@@ -8,24 +8,28 @@ namespace NetSecBHL
 {
     public static class Weather
     {
-        /// <summary>
-        ///   <br />
-        /// </summary>
         public enum Sunlight
         {
-            //<60%
+            /// <summary>
+            /// Smaller than 60%.
+            /// </summary>
             Small,
-            //60-90%
+            /// <summary>
+            /// Between 60-90%.
+            /// </summary>
             Medium,
-            //90-100%
+            /// <summary>
+            /// Greater than 90%.
+            /// </summary>
             Large
         }
+        /// <summary>
+        /// WeatherData containing temperature (float) and sunlight (0-100 int) for specified date (DateTime).
+        /// </summary>
         public struct WeatherData
         {
             DateTime timeStamp;
             float temperature;
-            //Summary:
-            //0-100, 0 meaning clouded sky and 100 meaning clear sky
             int sunlight;
 
             public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
@@ -64,11 +68,22 @@ namespace NetSecBHL
             {
                 return base.GetHashCode();
             }
+            /// <summary>
+            /// Converts to string in format "   *DATE* *TIME* - Temperature: ##◦C, Sunlight: ##%.   ".
+            /// </summary>
+            /// <returns>
+            /// A <see cref="System.String" /> that represents this instance.
+            /// </returns>
             public override string ToString()
             {
-                return $"{this.TimeStamp.ToLongTimeString()} - Temperature: {this.temperature}◦C, Sunlight: {this.sunlight}%.";
+                return $"{this.TimeStamp.ToShortDateString()} {this.TimeStamp.ToShortTimeString()} - Temperature: {this.temperature}◦C, Sunlight: {this.sunlight}%.";
             }
         }
+        /// <summary>
+        /// Generates the weather for provided date.
+        /// </summary>
+        /// <param name="dateTime">The date time for which you want to generate wheather.</param>
+        /// <returns>Generated weather data as WeatherData struct.</returns>
         public static WeatherData generateWeather(DateTime dateTime)
         {
             Random random = new Random();
@@ -89,6 +104,46 @@ namespace NetSecBHL
                 else weatherData.Sunlight = 20;
             }
             return weatherData;
+        }
+        /// <summary>
+        /// Generates the weather for specified period of time.
+        /// </summary>
+        /// <param name="startDate">The start date.</param>
+        /// <param name="endDate">The end date.</param>
+        /// <returns>List of WeatherData structs.</returns>
+        public static List<WeatherData> generateWeather(DateTime startDate, DateTime endDate)
+        {
+            List<WeatherData> weatherDatas = new List<WeatherData>();
+            int hoursCount = (int)(endDate - startDate).TotalHours;
+            for (int i = 0; i < hoursCount; i++)
+            {
+                WeatherData weatherData = new WeatherData(startDate.AddHours(i));
+                weatherData = generateWeather(weatherData.TimeStamp);
+                if (i != 0)
+                {
+                    //temperature dropped
+                    if (weatherDatas[i-1].Temperature - weatherData.Temperature > 2)
+                    {
+                        weatherData.Temperature = weatherDatas[i - 1].Temperature - 2;
+                    }
+                    else if (weatherDatas[i-1].Temperature - weatherData.Temperature < -2)
+                    {
+                        weatherData.Temperature = weatherDatas[i - 1].Temperature + 2;
+                    }
+
+                    //sunlight dropped
+                    if (weatherDatas[i-1].Sunlight - weatherData.Sunlight > 20)
+                    {
+                        weatherData.Sunlight = weatherDatas[i - 1].Sunlight - 20;
+                    }
+                    else if (weatherDatas[i-1].Sunlight - weatherData.Sunlight < 20)
+                    {
+                        weatherData.Sunlight = weatherDatas[i - 1].Sunlight + 20;
+                    }
+                }
+                weatherDatas.Add(weatherData);
+            }
+            return weatherDatas;
         }
     }
 }

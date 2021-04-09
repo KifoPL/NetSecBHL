@@ -8,5 +8,7 @@ namespace NetSecBHL
 {
     interface IWeatherCommunication
     {
+        public Weather.WeatherData getCurrentWeather(DateTime date);
+
     }
 }

@@ -10,11 +10,12 @@ namespace NetSecBHL
     {
 
         //Inputs
+        public float getCurrentPowerUsage();
+        public float getCurrentBattery();
+        public float getCurrentFotovoltaicsPower();
+        public float getCurrentHardwarePower();
 
-
-
-        //Outputs
-        public void turnOnWaterHeater(int seconds);                
+        //Outputs              
       
 
     }
