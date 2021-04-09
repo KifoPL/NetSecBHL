@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetSecBHL.Data
+namespace NetSecBHL
 {
     public static class EnergyPriceListData
     {
@@ -42,7 +42,41 @@ namespace NetSecBHL.Data
             }
             else
             {
-
+                if (dayType == Calendar.DayType.Workday)
+                {
+                    if (date.Hour < 6)
+                    {
+                        return new Price(100, 50);
+                    }
+                    if (date.Hour < 15)
+                    {
+                        return new Price(200, 250);
+                    }
+                    if (date.Hour < 17)
+                    {
+                        return new Price(100, 100);
+                    }
+                    if (date.Hour < 22)
+                    {
+                        return new Price(200, 250);
+                    }
+                    else
+                    {
+                        return new Price(100, 50);
+                    }
+                }
+                else
+                {
+                    if (date.Hour < 12)
+                    {
+                        return new Price(100, 50);
+                    }
+                    if (date.Hour < 15)
+                    {
+                        return new Price(50, 25);
+                    }
+                    else return new Price(100, 50);
+                }
             }
         }
     }

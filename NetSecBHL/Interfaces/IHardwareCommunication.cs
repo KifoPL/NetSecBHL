@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace NetSecBHL
 {
-    static class FlowManager
+    interface IHardwareCommunication
     {
 
-        static void update()
-        {
-            
-        }
-        
+        //Inputs
+
+
+
+        //Outputs
+        public void turnOnWaterHeater(int seconds);                
+      
+
     }
 }

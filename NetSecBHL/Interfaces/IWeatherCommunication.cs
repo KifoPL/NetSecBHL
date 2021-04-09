@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetSecBHL
 {
-    static class FlowManager
+    interface IWeatherCommunication
     {
-
-        static void update()
-        {
-            
-        }
-        
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetSecBHL
 {
-    static class Calendar
+    public static class Calendar
     {
         public enum DayType
         {
