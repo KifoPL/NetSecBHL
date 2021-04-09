@@ -35,6 +35,14 @@ namespace NetSecBHL.Data
                         return new Price(100, 50);
                     }
                 }
+                else
+                {
+                    return new Price(100, 50);
+                }
+            }
+            else
+            {
+
             }
         }
     }
