@@ -8,7 +8,13 @@ namespace NetSecBHL
 {
     public static class EnergyPriceListData
     {
-        public static Price getEnergyGRPrice(Calendar.DayType dayType, DateTime date)
+        /// <summary>
+        /// Gets the Price of energy based on date. (unit - gr)
+        /// </summary>
+        /// <param name="dayType">Type of the day.</param>
+        /// <param name="date">The date.</param>
+        /// <returns></returns>
+        public static Price getEnergyPrice(Calendar.DayType dayType, DateTime date)
         {
             if (date.Month <= 3 || date.Month >= 10)
             {

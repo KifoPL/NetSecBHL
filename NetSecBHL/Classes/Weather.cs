@@ -122,21 +122,21 @@ namespace NetSecBHL
                 if (i != 0)
                 {
                     //temperature dropped
-                    if (weatherDatas[i-1].Temperature - weatherData.Temperature > 2)
+                    if (weatherDatas[i - 1].Temperature - weatherData.Temperature > 2)
                     {
                         weatherData.Temperature = weatherDatas[i - 1].Temperature - 2;
                     }
-                    else if (weatherDatas[i-1].Temperature - weatherData.Temperature < -2)
+                    else if (weatherDatas[i - 1].Temperature - weatherData.Temperature < -2)
                     {
                         weatherData.Temperature = weatherDatas[i - 1].Temperature + 2;
                     }
 
                     //sunlight dropped
-                    if (weatherDatas[i-1].Sunlight - weatherData.Sunlight > 20)
+                    if (weatherDatas[i - 1].Sunlight - weatherData.Sunlight > 20)
                     {
                         weatherData.Sunlight = weatherDatas[i - 1].Sunlight - 20;
                     }
-                    else if (weatherDatas[i-1].Sunlight - weatherData.Sunlight < 20)
+                    else if (weatherDatas[i - 1].Sunlight - weatherData.Sunlight < 20)
                     {
                         weatherData.Sunlight = weatherDatas[i - 1].Sunlight + 20;
                     }
