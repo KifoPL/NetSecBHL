@@ -47,6 +47,17 @@ namespace NetSecBHL
                 this.temperature = temperature;
                 this.sunlight = sunlight;
             }
+            /// <summary>
+            /// Converts Sunlight percent into Enumerator Sunlight.
+            /// </summary>
+            /// <param name="sunlight">The sunlight expressed as 0-100 %.</param>
+            /// <returns></returns>
+            public Weather.Sunlight GetSunlightEnum(int sunlight)
+            {
+                if (sunlight < 60) return Weather.Sunlight.Small;
+                if (sunlight < 90) return Weather.Sunlight.Medium;
+                else return Weather.Sunlight.Large;
+            }
             public static bool operator ==(WeatherData weatherData1, WeatherData weatherData2)
             {
                 if (weatherData1.temperature == weatherData2.temperature)

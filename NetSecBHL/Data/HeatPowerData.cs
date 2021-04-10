@@ -8,7 +8,12 @@ namespace NetSecBHL
 {
     static class HeatPowerData
     {
-        public static HeatingPowerUsage getHeatingPower(float temp)
+        /// <summary>
+        /// Gets the required heating power.
+        /// </summary>
+        /// <param name="temp">Outside temperature.</param>
+        /// <returns>HeatingPowerUsage struct: maintainTempPower, heatingPower, decreasingTime.</returns>
+        public static HeatingPowerUsage getHeatingPower(int temp)
         {
             if  (temp > 20) return new HeatingPowerUsage(0,  0,  0);
             if  (temp >= 15) return new HeatingPowerUsage(0.5f,  2,  6);
@@ -22,13 +27,13 @@ namespace NetSecBHL
 
         public struct HeatingPowerUsage
         {
-            public float mantainTempPower;
+            public float maintainTempPower;
             public int heatingPower;
             public float decreasingTime;
 
-            public HeatingPowerUsage(float mantain, int heating, float decreasing)
+            public HeatingPowerUsage(float maintain, int heating, float decreasing)
             {
-                mantainTempPower = mantain;
+                maintainTempPower = maintain;
                 heatingPower = heating;
                 decreasingTime = decreasing;
             }
