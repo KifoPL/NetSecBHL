@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetSecBHL.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,6 +21,12 @@ namespace NetSecBHL
         private List<DateTime> HolidayList = new List<DateTime>();
         private DateTime InitialDate = DateTime.Now;
         private int HourTicks = 0;
+        public void setHourTimer(int hpers)
+        {
+            if (hpers != 0)
+                HourTimer.Interval = 1000 / hpers;
+            else HourTimer.Interval = 3600000;
+        }
         private void MainWindow_Load(object sender, EventArgs e)
         {
             SecondTimer.Enabled = true;
@@ -35,6 +42,8 @@ namespace NetSecBHL
         private void SecondTimer_Tick(object sender, EventArgs e)
         {
             lblTime.Text = $"Czas: {DateTime.Now.AddHours(HourTicks).ToShortDateString()} {DateTime.Now.AddHours(HourTicks).ToLongTimeString()}";
+            if (DateTime.Now.Minute == 0 && DateTime.Now.Second == 0)
+                HourTimer_Tick(sender, e);
         }
 
         private void HourTimer_Tick(object sender, EventArgs e)
@@ -50,20 +59,33 @@ namespace NetSecBHL
         {
             lblCurrentCost.Text = $"{(hourlyData.Price.cost / 100)},{hourlyData.Price.cost % 100} zł";
             lblCurrentIncome.Text = $"{(hourlyData.Price.income / 100)},{hourlyData.Price.income % 100} zł";
-            lblCurrentGeneratedPower.Text = $"{hourlyData.PowerUsage.Generated} kW";
-            lblCurrentPowerUsage.Text = $"{hourlyData.PowerUsage.Used} kW";
+            lblCurrentGeneratedPower.Text = $"{hourlyData.PowerUsage.Generated} kWh";
+            lblCurrentPowerUsage.Text = $"{hourlyData.PowerUsage.Used} kWh";
             hourlyData.Price.calculateTotal();
             lblCurrentGain.Text = $"{(hourlyData.Price.total / 100)},{hourlyData.Price.total % 100} zł";
 
             lblTotalCost.Text = $"{Home.TotalCost / 100},{Home.TotalCost % 100} zł";
-            lblTotalIncome.Text = $"{Home.TotalIncome / 100},{Home.TotalCost % 100} zł";
+            lblTotalIncome.Text = $"{Home.TotalIncome / 100},{Home.TotalIncome % 100} zł";
             lblTotalGain.Text = $"{Home.TotalGain / 100},{Home.TotalGain % 100} zł";
-            lblTotalGeneratedPower.Text = $"{Home.TotalGeneratedPower} kW";
-            lblTotalPowerUsage.Text = $"{Home.TotalPowerUsage} kW";
+            lblTotalGeneratedPower.Text = $"{Home.TotalGeneratedPower} kWh";
+            lblTotalPowerUsage.Text = $"{Home.TotalPowerUsage} kWh";
 
             lblCurrentTemperature.Text = $"{weatherData.Temperature} °C";
             lblSunlight.Text = $"{weatherData.Sunlight} % ";
             lblSunlight.Text += (weatherData.GetSunlightEnum(weatherData.Sunlight) == Weather.Sunlight.Small) ? "- Niskie" : (weatherData.GetSunlightEnum(weatherData.Sunlight) == Weather.Sunlight.Medium) ? "- Średnie" : "- Wysokie";
+        }
+
+        private void btnMatrix_Click(object sender, EventArgs e)
+        {
+            Matrix matrix = new Matrix();
+            if (matrix.ShowDialog() == DialogResult.OK)
+            {
+                Settings.isMatrixOn = true;
+                PowerCell.MaxCharge = Settings.maxStoredPower;
+                PowerCell.MaxChargingSpeed = Settings.maxChargePower;
+                PowerCell.MaxUsageCharge = Settings.maxUsagePower;
+                setHourTimer(Settings.SimSpeed);
+            }
         }
     }
 }

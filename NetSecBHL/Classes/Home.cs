@@ -12,8 +12,8 @@ namespace NetSecBHL
         private static int totalIncome = 0;
         private static int totalCost = 0;
         private static int totalGain = 0;
-        private static int totalGeneratedPower = 0;
-        private static int totalPowerUsage = 0;
+        private static float totalGeneratedPower = 0;
+        private static float totalPowerUsage = 0;
         private static List<HourlyData> hourlyDataList = new List<HourlyData>();
         private static List<DailyData> dailyDataList = new List<DailyData>();
 
@@ -29,8 +29,8 @@ namespace NetSecBHL
         public static int TotalIncome { get => totalIncome; set => totalIncome = value; }
         public static int TotalCost { get => totalCost; set => totalCost = value; }
         public static int TotalGain { get => totalGain; set => totalGain = value; }
-        public static int TotalGeneratedPower { get => totalGeneratedPower; set => totalGeneratedPower = value; }
-        public static int TotalPowerUsage { get => totalPowerUsage; set => totalPowerUsage = value; }
+        public static float TotalGeneratedPower { get => totalGeneratedPower; set => totalGeneratedPower = value; }
+        public static float TotalPowerUsage { get => totalPowerUsage; set => totalPowerUsage = value; }
 
         /// <summary>
         /// Increases temperature by 1◦C.
@@ -56,8 +56,8 @@ namespace NetSecBHL
             Home.TotalCost += Home.HourlyDataList.Last<HourlyData>().Price.cost;
             Home.TotalIncome += Home.HourlyDataList.Last<HourlyData>().Price.income;
             Home.TotalGain += Home.TotalIncome - Home.TotalCost;
-            Home.TotalGeneratedPower += (int)Home.HourlyDataList.Last<HourlyData>().PowerUsage.Generated;
-            Home.TotalPowerUsage += (int)Home.HourlyDataList.Last<HourlyData>().PowerUsage.Used;
+            Home.TotalGeneratedPower += Home.HourlyDataList.Last<HourlyData>().PowerUsage.Generated;
+            Home.TotalPowerUsage += Home.HourlyDataList.Last<HourlyData>().PowerUsage.Used;
         }
 
         public static void populateDailyDataList()

@@ -73,7 +73,7 @@ namespace NetSecBHL
             if (date.Date == new DateTime(date.Year, 5, 1)) return DayType.Holiday;
             if (date.Date == new DateTime(date.Year, 5, 2)) return DayType.Holiday;
             if (date.Date == new DateTime(date.Year, 5, 3)) return DayType.Holiday;
-            if (date.Date == new DateTime(date.Year, 15, 8)) return DayType.Holiday;
+            if (date.Date == new DateTime(date.Year, 8, 5)) return DayType.Holiday;
             if (date.Date == new DateTime(date.Year, 11, 11)) return DayType.Holiday;
             if (date.Date == new DateTime(date.Year, 12, 24)) return DayType.Holiday;
             if (date.Date == new DateTime(date.Year, 12, 25)) return DayType.Holiday;

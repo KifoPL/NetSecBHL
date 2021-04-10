@@ -48,7 +48,12 @@ namespace NetSecBHL
             hourlyData.DateTime = weatherData.TimeStamp;
 
 
-            float powerUsage = getHourlyPowerUsage(weatherData) / 5;
+            float powerUsage = getHourlyPowerUsage(weatherData);
+            float rawpowerUsage = powerUsage;
+            powerUsage /= 5;
+            rawpowerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
+            powerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
+
             float powerProvidedByPhotovoltaics = PhotovoltaicsEfficiencyData.getPhotovoltaicsPower(weatherData.TimeStamp, weatherData.GetSunlightEnum(weatherData.Sunlight));
             hourlyData.PowerUsage.Generated = powerProvidedByPhotovoltaics;
             hourlyData.PowerUsage.Used = powerUsage;
@@ -80,6 +85,7 @@ namespace NetSecBHL
                 hourlyData.Price.cost = (int)(EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp).cost * missingPower);
             }
             hourlyData.OptimalCostType = Workflow.TypeA;
+            hourlyData.PowerUsage.Used = rawpowerUsage;
             return hourlyData;
         }
         static HourlyData TypeB(Weather.WeatherData weatherData)
@@ -88,7 +94,11 @@ namespace NetSecBHL
             hourlyData.DateTime = weatherData.TimeStamp;
 
 
-            float powerUsage = getHourlyPowerUsage(weatherData) / 5;
+            float powerUsage = getHourlyPowerUsage(weatherData);
+            float rawpowerUsage = powerUsage;
+            powerUsage /= 5;
+            rawpowerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
+            powerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
             float powerProvidedByPhotovoltaics = PhotovoltaicsEfficiencyData.getPhotovoltaicsPower(weatherData.TimeStamp, weatherData.GetSunlightEnum(weatherData.Sunlight));
             hourlyData.PowerUsage.Generated = powerProvidedByPhotovoltaics;
             hourlyData.PowerUsage.Used = powerUsage;
@@ -108,6 +118,7 @@ namespace NetSecBHL
                 hourlyData.Price.cost = (int)(EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp).cost * missingPower);
             }
             hourlyData.OptimalCostType = Workflow.TypeB;
+            hourlyData.PowerUsage.Used = rawpowerUsage;
             return hourlyData;
         }
         static HourlyData TypeC(Weather.WeatherData weatherData)
@@ -119,7 +130,11 @@ namespace NetSecBHL
             HourlyData hourlyData = new HourlyData();
             hourlyData.DateTime = weatherData.TimeStamp;
 
-            float powerUsage = getHourlyPowerUsage(weatherData) / 5;
+            float powerUsage = getHourlyPowerUsage(weatherData);
+            float rawpowerUsage = powerUsage;
+            powerUsage /= 5;
+            rawpowerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
+            powerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
             float powerProvidedByPhotovoltaics = PhotovoltaicsEfficiencyData.getPhotovoltaicsPower(weatherData.TimeStamp, weatherData.GetSunlightEnum(weatherData.Sunlight));
             if (powerUsage > powerProvidedByPhotovoltaics)
             {
@@ -136,6 +151,7 @@ namespace NetSecBHL
                 hourlyData.Price = new Price((int)(powerChargeLoadValue) * powerPriceForKw.cost, 0);
             }
             hourlyData.OptimalCostType = Workflow.TypeC;
+            hourlyData.PowerUsage.Used = rawpowerUsage;
             return hourlyData;
         }
         static HourlyData TypeD(Weather.WeatherData weatherData)
@@ -146,7 +162,11 @@ namespace NetSecBHL
             HourlyData hourlyData = new HourlyData();
             hourlyData.DateTime = weatherData.TimeStamp;
 
-            float powerUsage = getHourlyPowerUsage(weatherData) / 5;
+            float powerUsage = getHourlyPowerUsage(weatherData);
+            float rawpowerUsage = powerUsage;
+            powerUsage /= 5;
+            rawpowerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
+            powerUsage += WaterHeating.PowerUsage(weatherData.TimeStamp);
             float powerProvidedByPhotovoltaics = PhotovoltaicsEfficiencyData.getPhotovoltaicsPower(weatherData.TimeStamp, weatherData.GetSunlightEnum(weatherData.Sunlight));
             if(powerUsage > powerProvidedByPhotovoltaics)
             {
@@ -173,6 +193,7 @@ namespace NetSecBHL
                 hourlyData.Price = new Price(0, (int)(powerSold * powerPriceForKw.income));
             }
             hourlyData.OptimalCostType = Workflow.TypeD;
+            hourlyData.PowerUsage.Used = rawpowerUsage;
             return hourlyData;
         }
         /// <summary>

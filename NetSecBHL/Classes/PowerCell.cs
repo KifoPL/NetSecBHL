@@ -15,15 +15,15 @@ namespace NetSecBHL
         /// <summary>
         /// The maximum capacity of the powercell
         /// </summary>
-        public static readonly int MaxCharge = 7;
+        public static int MaxCharge = 7;
         /// <summary>
         /// The maximum charging speed of the powercell per hour
         /// </summary>
-        public static readonly int MaxChargingSpeed = 1;
+        public static int MaxChargingSpeed = 1;
         /// <summary>
         /// The maximum usage charge speed of the powercell per hour
         /// </summary>
-        public static readonly int MaxUsageCharge = 2;
+        public static int MaxUsageCharge = 2;
 
         public static float CurrentCharge { get => currentCharge; }
         /// <summary>

@@ -211,6 +211,7 @@ namespace NetSecBHL
             this.btnMatrix.TabIndex = 22;
             this.btnMatrix.Text = "MATRIX";
             this.btnMatrix.UseVisualStyleBackColor = false;
+            this.btnMatrix.Click += new System.EventHandler(this.btnMatrix_Click);
             // 
             // lblCurrentGain
             // 
