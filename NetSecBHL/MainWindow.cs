@@ -31,7 +31,6 @@ namespace NetSecBHL
                     HolidayList.Add(tempdate);
                 }
             }
-            monthCalendar1.BoldedDates = HolidayList.ToArray();
         }
     }
 }

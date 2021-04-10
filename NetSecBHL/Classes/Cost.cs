@@ -11,12 +11,30 @@ namespace NetSecBHL
     /// </summary>
     static class Cost
     {
+        private static float maxReturnAmount = 100;
+
         private static int totalCost;
         private static int totalIncome;
 
         public static int TotalCost { get => totalCost; set => totalCost = value; }
         public static int TotalIncome { get => totalIncome; set => totalIncome = value; }
+
+
+        public static void getDaysForStashing()
+        {
+
+        }
+
+        public static void getDaysForCollecting(float amountSold)
+        {
+
+        }
     }
+
+    public struct StashDay(){
+
+        }
+
     /// <summary>
     /// Total yearly Data plan
     /// </summary>

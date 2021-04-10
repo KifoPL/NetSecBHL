@@ -30,35 +30,68 @@ namespace NetSecBHL
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblGlobal = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // monthCalendar1
+            // label1
             // 
-            this.monthCalendar1.BackColor = System.Drawing.Color.Coral;
-            this.monthCalendar1.CalendarDimensions = new System.Drawing.Size(3, 1);
-            this.monthCalendar1.Location = new System.Drawing.Point(18, 18);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.ShowWeekNumbers = true;
-            this.monthCalendar1.TabIndex = 0;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(484, 23);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Optymalizator zużycia energii SmartHome";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lblGlobal);
+            this.panel1.Location = new System.Drawing.Point(12, 26);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(460, 323);
+            this.panel1.TabIndex = 1;
+            // 
+            // lblGlobal
+            // 
+            this.lblGlobal.AutoSize = true;
+            this.lblGlobal.Font = new System.Drawing.Font("Candara Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblGlobal.Location = new System.Drawing.Point(9, 9);
+            this.lblGlobal.Name = "lblGlobal";
+            this.lblGlobal.Size = new System.Drawing.Size(75, 23);
+            this.lblGlobal.TabIndex = 0;
+            this.lblGlobal.Text = "Łącznie:";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 420);
-            this.Controls.Add(this.monthCalendar1);
+            this.BackColor = System.Drawing.Color.Wheat;
+            this.ClientSize = new System.Drawing.Size(484, 361);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "MainWindow";
-            this.Text = "Form1";
+            this.Text = "NetSec BHL";
             this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblGlobal;
     }
 }
 
