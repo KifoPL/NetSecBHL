@@ -57,59 +57,8 @@ namespace NetSecBHL
             }
             return collectingDays;
         }
- 
     }
 
-
-    /// <summary>
-    /// Total yearly Data plan
-    /// </summary>
-    public struct YearlyData
-    {
-        /// <summary>
-        /// The price [gr]
-        /// </summary>
-        public Price Price;
-        /// <summary>
-        /// The power usage [kW]
-        /// </summary>
-        public PowerUsage PowerUsage;
-        private float costofUsedPower;
-        private float costofGeneratedPower;
-        /// <summary>
-        /// Gets the cost of used power.
-        /// </summary>
-        /// <value>
-        /// The cost of used power.
-        /// </value>
-        public float CostofUsedPower { get => costofUsedPower; }
-        /// <summary>
-        /// Gets the cost of generated power.
-        /// </summary>
-        /// <value>
-        /// The cost of generated power.
-        /// </value>
-        public float CostofGeneratedPower { get => costofGeneratedPower; }
-        public YearlyData(bool _ = true) : this()
-        {
-            this.Price = new Price(0, 0);
-        }
-
-        /// <summary>
-        /// Calculates the cost of used power.
-        /// </summary>
-        public void calculateCostofUsedPower()
-        {
-            this.costofUsedPower = PowerUsage.Used / Price.total;
-        }
-        /// <summary>
-        /// Calculates the cost of generated power.
-        /// </summary>
-        public void calculateCostofGeneratedPower()
-        {
-            this.costofGeneratedPower = PowerUsage.Generated / Price.total;
-        }
-    };
     /// <summary>
     /// Daily Data of power installation. Unit: gr, kW
     /// </summary>
@@ -139,9 +88,20 @@ namespace NetSecBHL
         /// The cost of generated power.
         /// </value>
         public float CostofGeneratedPowerPerKw { get => costofGeneratedPowerPerKw; }
+        
         public DailyData(bool _ = true) : this()
         {
             this.Price = new Price(0, 0);
+        }
+        public DailyData(List<HourlyData> hourlyDataList): this()
+        {
+            this.Price = new Price(0, 0);
+            this.PowerUsage = new PowerUsage(0, 0);
+            foreach(var hour in hourlyDataList)
+            {
+                Price += hour.Price;
+                PowerUsage += hour.PowerUsage;
+            }
         }
 
         /// <summary>
@@ -217,6 +177,15 @@ namespace NetSecBHL
         {
             total = income - cost;
         }
+
+        public static Price operator + (Price p1, Price p2)
+        {
+            Price p = new Price(0, 0);
+            p.cost = p1.cost + p2.cost;
+            p.income = p1.income + p2.income;
+            p.calculateTotal();
+            return p;
+        }
     }
     /// <summary>
     /// PowerUsage struct - unit kW
@@ -244,6 +213,15 @@ namespace NetSecBHL
         public void calculateTotal()
         {
             Total = generated - used;
+        }
+
+        public static PowerUsage operator + (PowerUsage p1, PowerUsage p2)
+        {
+            PowerUsage powerUsage = new PowerUsage(0,0);
+            powerUsage.Used = p1.Used + p2.Used;
+            powerUsage.Generated = p1.Generated + p2.Generated;
+            powerUsage.calculateTotal();
+            return powerUsage;
         }
 
     }

@@ -79,6 +79,7 @@ namespace NetSecBHL
                 hourlyData.Price.income = 0;
                 hourlyData.Price.cost = (int)(EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp).cost * missingPower);
             }
+            hourlyData.OptimalCostType = Workflow.TypeA;
             return hourlyData;
         }
         static HourlyData TypeB(Weather.WeatherData weatherData)
@@ -106,6 +107,7 @@ namespace NetSecBHL
                 hourlyData.Price.income = 0;
                 hourlyData.Price.cost = (int)(EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp).cost * missingPower);
             }
+            hourlyData.OptimalCostType = Workflow.TypeB;
             return hourlyData;
         }
         static HourlyData TypeC(Weather.WeatherData weatherData)
@@ -215,19 +217,25 @@ namespace NetSecBHL
                 Home.decreaseTemperature(1 / HeatPowerData.getHeatingPower(expectedTemp).decreasingTime);
             }
         }
-        private static void whichType(Weather.WeatherData weatherData)
+        /// <summary>
+        /// Decides, what type of workflow it should execute, then it executes that workflow.
+        /// </summary>
+        /// <param name="weatherData">The weather data.</param>
+        /// <returns>Hourly data filled with cost, prize, and Workflow type.</returns>
+        private static HourlyData whichType(Weather.WeatherData weatherData)
         {
             float powerUsage = getHourlyPowerUsage(weatherData) / 5;
             float powerProvidedByPhotovoltaics = PhotovoltaicsEfficiencyData.getPhotovoltaicsPower(weatherData.TimeStamp, weatherData.GetSunlightEnum(weatherData.Sunlight));
             float PowerCellCharging = Math.Min(powerProvidedByPhotovoltaics - powerUsage, PowerCell.MaxChargingSpeed);
+            HourlyData hourlyData = new();
 
             if (powerProvidedByPhotovoltaics > powerUsage)
             {
                 if (PowerCell.CurrentCharge + PowerCellCharging >= PowerCell.MaxCharge)
                 {
-                    TypeB(weatherData);
+                    hourlyData = TypeB(weatherData);
                 }
-                else TypeA(weatherData);
+                else hourlyData = TypeA(weatherData);
             }
             else
             {
@@ -235,12 +243,23 @@ namespace NetSecBHL
                 {
                     if (PowerCell.CurrentCharge + PowerCellCharging >= PowerCell.MaxCharge)
                     {
-                        TypeB(weatherData);
+                        hourlyData = TypeB(weatherData);
                     }
-                    else TypeC(weatherData);
+                    else hourlyData = TypeC(weatherData);
                 }
-                else TypeD(weatherData);
+                else hourlyData = TypeD(weatherData);
             }
+            return hourlyData;
+        }
+        /// <summary>
+        /// Manages the power usage and cost efficiency.
+        /// </summary>
+        /// <param name="weatherData">The weather data.</param>
+        /// <returns></returns>
+        public static HourlyData work(Weather.WeatherData weatherData)
+        {
+            homeTemperatureManager(weatherData);
+            return whichType(weatherData);
         }
     }
 }

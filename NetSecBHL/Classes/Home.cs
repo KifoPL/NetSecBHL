@@ -9,10 +9,13 @@ namespace NetSecBHL
     public static class Home
     {
         private static float temperature;
+        private static int totalIncome;
+        private static int totalCost;
+        private static int totalGain;
+        private static int totalGeneratedPower;
+        private static int totalPowerUsage;
         private static List<HourlyData> hourlyDataList = new List<HourlyData>();
         private static List<DailyData> dailyDataList = new List<DailyData>();
-        private static YearlyData previousYear = new YearlyData();
-        private static YearlyData currentYear = new YearlyData();
 
         /// <summary>
         /// Gets the temperature in ◦C.
@@ -23,8 +26,11 @@ namespace NetSecBHL
         public static float Temperature { get => temperature; }
         public static List<HourlyData> HourlyDataList { get => hourlyDataList; set => hourlyDataList = value; }
         public static List<DailyData> DailyDataList { get => dailyDataList; set => dailyDataList = value; }
-        public static YearlyData PreviousYear { get => previousYear; set => previousYear = value; }
-        public static YearlyData CurrentYear { get => currentYear; set => currentYear = value; }
+        public static int TotalIncome { get => totalIncome; set => totalIncome = value; }
+        public static int TotalCost { get => totalCost; set => totalCost = value; }
+        public static int TotalGain { get => totalGain; set => totalGain = value; }
+        public static int TotalGeneratedPower { get => totalGeneratedPower; set => totalGeneratedPower = value; }
+        public static int TotalPowerUsage { get => totalPowerUsage; set => totalPowerUsage = value; }
 
         /// <summary>
         /// Increases temperature by 1◦C.
@@ -41,5 +47,30 @@ namespace NetSecBHL
         {
             temperature -= value;
         }
+
+        public static void populateDailyDataList()
+        {
+            List<HourlyData> sortedHourlyData = hourlyDataList.OrderBy(data => data.DateTime).ToList();
+            if(sortedHourlyData.Count > 0)
+            {
+                DateTime lastDate = sortedHourlyData[0].DateTime;
+                List<HourlyData> hoursOfDay = new List<HourlyData>();
+                foreach (HourlyData hour in sortedHourlyData)
+                {
+                    if (lastDate.Date == hour.DateTime.Date)
+                    {
+                        hoursOfDay.Add(hour);
+                    }
+                    else
+                    {
+                        dailyDataList.Add(new DailyData(hoursOfDay));
+                    }
+                }
+            }
+            
+        }
+
+
+
     }
 }
