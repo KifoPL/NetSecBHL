@@ -41,7 +41,10 @@ namespace NetSecBHL
 
         private void SecondTimer_Tick(object sender, EventArgs e)
         {
+            if (!Settings.isMatrixOn)
             lblTime.Text = $"Czas: {DateTime.Now.AddHours(HourTicks).ToShortDateString()} {DateTime.Now.AddHours(HourTicks).ToLongTimeString()}";
+            else
+
             if (DateTime.Now.Minute == 0 && DateTime.Now.Second == 0)
                 HourTimer_Tick(sender, e);
         }
@@ -78,13 +81,37 @@ namespace NetSecBHL
         private void btnMatrix_Click(object sender, EventArgs e)
         {
             Matrix matrix = new Matrix();
-            if (matrix.ShowDialog() == DialogResult.OK)
+            DialogResult dialogResult = matrix.ShowDialog();
+            if (dialogResult == DialogResult.OK)
             {
                 Settings.isMatrixOn = true;
                 PowerCell.MaxCharge = Settings.maxStoredPower;
                 PowerCell.MaxChargingSpeed = Settings.maxChargePower;
                 PowerCell.MaxUsageCharge = Settings.maxUsagePower;
                 setHourTimer(Settings.SimSpeed);
+                Home.HourlyDataList.Clear();
+                lblSimulation.Visible = true;
+                lblSimulation.Text = $"Symulacja od: {Settings.weatherDatas.First().TimeStamp.ToShortDateString()}";
+                lblTime.Text = $"Czas: {DateTime.Now.AddDays((Settings.weatherDatas.Last().TimeStamp - DateTime.Now).TotalDays).ToShortDateString()} {DateTime.Now.AddDays((Settings.weatherDatas.Last().TimeStamp - DateTime.Now).TotalDays).ToLongTimeString()}";
+                foreach (Weather.WeatherData weatherData in Settings.weatherDatas)
+                {
+                    Home.HourlyDataList.Add(FlowManager.work(weatherData));
+                    Home.calculate();
+                    updateLabels(Home.HourlyDataList.Last<HourlyData>(), weatherData);
+                }
+            }
+            else if (dialogResult == DialogResult.Abort)
+            {
+                lblSimulation.Visible = false;
+                Home.HourlyDataList.Clear();
+                SecondTimer.Enabled = true;
+                HourTimer.Enabled = true;
+                lblTime.Text = $"Czas: {DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()}";
+                Weather.WeatherData weatherData = new Weather.WeatherData(InitialDate);
+                weatherData = Weather.generateWeather(weatherData.TimeStamp);
+                Home.HourlyDataList.Add(FlowManager.work(weatherData));
+                Home.calculate();
+                updateLabels(Home.HourlyDataList.Last<HourlyData>(), weatherData);
             }
         }
     }

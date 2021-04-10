@@ -62,7 +62,7 @@ namespace NetSecBHL
         private void button2_Click(object sender, EventArgs e)
         {
             if (checkBox1.Checked) DialogResult = DialogResult.OK;
-            else DialogResult = DialogResult.Cancel;
+            else DialogResult = DialogResult.Abort;
         }
     }
 }

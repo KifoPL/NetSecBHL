@@ -55,7 +55,7 @@ namespace NetSecBHL
         {
             Home.TotalCost += Home.HourlyDataList.Last<HourlyData>().Price.cost;
             Home.TotalIncome += Home.HourlyDataList.Last<HourlyData>().Price.income;
-            Home.TotalGain += Home.TotalIncome - Home.TotalCost;
+            Home.TotalGain = Home.TotalIncome - Home.TotalCost;
             Home.TotalGeneratedPower += Home.HourlyDataList.Last<HourlyData>().PowerUsage.Generated;
             Home.TotalPowerUsage += Home.HourlyDataList.Last<HourlyData>().PowerUsage.Used;
         }

@@ -33,6 +33,7 @@ namespace NetSecBHL
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.label1 = new System.Windows.Forms.Label();
             this.Panel1 = new System.Windows.Forms.Panel();
+            this.lblSimulation = new System.Windows.Forms.Label();
             this.lblSunlight = new System.Windows.Forms.Label();
             this.lblCurrentTemperature = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -86,6 +87,7 @@ namespace NetSecBHL
             // Panel1
             // 
             this.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Panel1.Controls.Add(this.lblSimulation);
             this.Panel1.Controls.Add(this.lblSunlight);
             this.Panel1.Controls.Add(this.lblCurrentTemperature);
             this.Panel1.Controls.Add(this.label11);
@@ -118,8 +120,20 @@ namespace NetSecBHL
             this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Panel1.Location = new System.Drawing.Point(0, 35);
             this.Panel1.Name = "Panel1";
-            this.Panel1.Size = new System.Drawing.Size(484, 397);
+            this.Panel1.Size = new System.Drawing.Size(484, 394);
             this.Panel1.TabIndex = 1;
+            // 
+            // lblSimulation
+            // 
+            this.lblSimulation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSimulation.Location = new System.Drawing.Point(132, 324);
+            this.lblSimulation.Name = "lblSimulation";
+            this.lblSimulation.Size = new System.Drawing.Size(217, 23);
+            this.lblSimulation.TabIndex = 30;
+            this.lblSimulation.Text = "Symulacja od:";
+            this.lblSimulation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblSimulation.Visible = false;
             // 
             // lblSunlight
             // 
@@ -191,7 +205,7 @@ namespace NetSecBHL
             this.btnDateTime.FlatAppearance.BorderSize = 0;
             this.btnDateTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDateTime.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnDateTime.Location = new System.Drawing.Point(355, 320);
+            this.btnDateTime.Location = new System.Drawing.Point(355, 317);
             this.btnDateTime.Name = "btnDateTime";
             this.btnDateTime.Size = new System.Drawing.Size(117, 34);
             this.btnDateTime.TabIndex = 23;
@@ -205,7 +219,7 @@ namespace NetSecBHL
             this.btnMatrix.FlatAppearance.BorderSize = 0;
             this.btnMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMatrix.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnMatrix.Location = new System.Drawing.Point(9, 320);
+            this.btnMatrix.Location = new System.Drawing.Point(9, 317);
             this.btnMatrix.Name = "btnMatrix";
             this.btnMatrix.Size = new System.Drawing.Size(117, 34);
             this.btnMatrix.TabIndex = 22;
@@ -216,13 +230,13 @@ namespace NetSecBHL
             // lblCurrentGain
             // 
             this.lblCurrentGain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCurrentGain.AutoSize = true;
             this.lblCurrentGain.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblCurrentGain.Location = new System.Drawing.Point(409, 203);
+            this.lblCurrentGain.Location = new System.Drawing.Point(366, 203);
             this.lblCurrentGain.Name = "lblCurrentGain";
-            this.lblCurrentGain.Size = new System.Drawing.Size(63, 19);
+            this.lblCurrentGain.Size = new System.Drawing.Size(106, 19);
             this.lblCurrentGain.TabIndex = 21;
             this.lblCurrentGain.Text = "### zł";
+            this.lblCurrentGain.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label8
             // 
@@ -238,13 +252,13 @@ namespace NetSecBHL
             // lblCurrentIncome
             // 
             this.lblCurrentIncome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCurrentIncome.AutoSize = true;
             this.lblCurrentIncome.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblCurrentIncome.Location = new System.Drawing.Point(409, 165);
+            this.lblCurrentIncome.Location = new System.Drawing.Point(366, 165);
             this.lblCurrentIncome.Name = "lblCurrentIncome";
-            this.lblCurrentIncome.Size = new System.Drawing.Size(63, 19);
+            this.lblCurrentIncome.Size = new System.Drawing.Size(106, 19);
             this.lblCurrentIncome.TabIndex = 19;
             this.lblCurrentIncome.Text = "### zł";
+            this.lblCurrentIncome.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label10
             // 
@@ -260,13 +274,13 @@ namespace NetSecBHL
             // lblCurrentCost
             // 
             this.lblCurrentCost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCurrentCost.AutoSize = true;
             this.lblCurrentCost.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblCurrentCost.Location = new System.Drawing.Point(409, 127);
+            this.lblCurrentCost.Location = new System.Drawing.Point(366, 127);
             this.lblCurrentCost.Name = "lblCurrentCost";
-            this.lblCurrentCost.Size = new System.Drawing.Size(63, 19);
+            this.lblCurrentCost.Size = new System.Drawing.Size(106, 19);
             this.lblCurrentCost.TabIndex = 17;
             this.lblCurrentCost.Text = "### zł";
+            this.lblCurrentCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label12
             // 
@@ -282,13 +296,13 @@ namespace NetSecBHL
             // lblCurrentGeneratedPower
             // 
             this.lblCurrentGeneratedPower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCurrentGeneratedPower.AutoSize = true;
             this.lblCurrentGeneratedPower.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblCurrentGeneratedPower.Location = new System.Drawing.Point(409, 89);
+            this.lblCurrentGeneratedPower.Location = new System.Drawing.Point(366, 89);
             this.lblCurrentGeneratedPower.Name = "lblCurrentGeneratedPower";
-            this.lblCurrentGeneratedPower.Size = new System.Drawing.Size(63, 19);
+            this.lblCurrentGeneratedPower.Size = new System.Drawing.Size(106, 19);
             this.lblCurrentGeneratedPower.TabIndex = 15;
             this.lblCurrentGeneratedPower.Text = "### kW";
+            this.lblCurrentGeneratedPower.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label14
             // 
@@ -304,13 +318,13 @@ namespace NetSecBHL
             // lblCurrentPowerUsage
             // 
             this.lblCurrentPowerUsage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCurrentPowerUsage.AutoSize = true;
             this.lblCurrentPowerUsage.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblCurrentPowerUsage.Location = new System.Drawing.Point(409, 51);
+            this.lblCurrentPowerUsage.Location = new System.Drawing.Point(366, 51);
             this.lblCurrentPowerUsage.Name = "lblCurrentPowerUsage";
-            this.lblCurrentPowerUsage.Size = new System.Drawing.Size(63, 19);
+            this.lblCurrentPowerUsage.Size = new System.Drawing.Size(106, 19);
             this.lblCurrentPowerUsage.TabIndex = 13;
             this.lblCurrentPowerUsage.Text = "### kW";
+            this.lblCurrentPowerUsage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label16
             // 
@@ -449,7 +463,7 @@ namespace NetSecBHL
             this.lblTime.BackColor = System.Drawing.Color.BlanchedAlmond;
             this.lblTime.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblTime.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTime.Location = new System.Drawing.Point(0, 397);
+            this.lblTime.Location = new System.Drawing.Point(0, 394);
             this.lblTime.Name = "lblTime";
             this.lblTime.Padding = new System.Windows.Forms.Padding(3);
             this.lblTime.Size = new System.Drawing.Size(484, 35);
@@ -474,7 +488,7 @@ namespace NetSecBHL
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Wheat;
-            this.ClientSize = new System.Drawing.Size(484, 432);
+            this.ClientSize = new System.Drawing.Size(484, 429);
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.Panel1);
             this.Controls.Add(this.label1);
@@ -528,6 +542,7 @@ namespace NetSecBHL
         private System.Windows.Forms.Label lblCurrentTemperature;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblSimulation;
     }
 }
 
