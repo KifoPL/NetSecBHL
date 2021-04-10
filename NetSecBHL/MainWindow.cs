@@ -21,6 +21,9 @@ namespace NetSecBHL
         public DateTime Today = DateTime.Today;
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            SecondTimer.Enabled = true;
+            HourTimer.Enabled = true;
+            lblTime.Text = $"Czas: {DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()}";
             for (int i = -365; i <= 365; i++)
             {
                 DateTime tempdate = DateTime.Today;
@@ -31,6 +34,15 @@ namespace NetSecBHL
                     HolidayList.Add(tempdate);
                 }
             }
+        }
+
+        private void SecondTimer_Tick(object sender, EventArgs e)
+        {
+            lblTime.Text = $"Czas: {DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()}";
+        }
+
+        private void HourTimer_Tick(object sender, EventArgs e)
+        {
         }
     }
 }

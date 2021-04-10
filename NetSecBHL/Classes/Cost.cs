@@ -12,6 +12,7 @@ namespace NetSecBHL
     static class Cost
     {
         private static float maxReturnAmount = 100;
+        private static float stashedAmount = 0;
 
         private static int totalCost;
         private static int totalIncome;
@@ -20,20 +21,45 @@ namespace NetSecBHL
         public static int TotalIncome { get => totalIncome; set => totalIncome = value; }
 
 
-        public static void getDaysForStashing()
+        public static List<DailyData> getDaysForStashing(List<DailyData> dailyDataList)
         {
+            List<DailyData> stashingDays = new List<DailyData>();
+            stashedAmount = 0;
 
+            foreach(var day in dailyDataList) day.calculateCostofGeneratedPower();
+            List<DailyData> sortedDays = dailyDataList.OrderBy(day => day.CostofGeneratedPowerPerKw).ToList();
+
+            foreach(var day in sortedDays)
+            {
+                if(day.PowerUsage.Generated + stashedAmount <= maxReturnAmount)
+                {
+                    stashedAmount += day.PowerUsage.Generated;
+                    stashingDays.Add(day);
+                }
+            }
+            return stashingDays;
         }
 
-        public static void getDaysForCollecting(float amountSold)
+        public static List<DailyData> getDaysForCollecting(List<DailyData> dailyDataList)
         {
-
+            List<DailyData> collectingDays = new List<DailyData>();
+            foreach (var day in dailyDataList) day.calculateCostofUsedPower();
+            List<DailyData> sortedDays = dailyDataList.OrderByDescending(day => day.CostofUsedPowerPerKw).ToList();
+            float _stashedAmount = stashedAmount;
+            
+            foreach (var day in sortedDays)
+            {
+                if (_stashedAmount - day.PowerUsage.Used >= 0)
+                {
+                    _stashedAmount -= day.PowerUsage.Used;
+                    collectingDays.Add(day);
+                }
+            }
+            return collectingDays;
         }
+ 
     }
 
-    public struct StashDay(){
-
-        }
 
     /// <summary>
     /// Total yearly Data plan
@@ -97,22 +123,22 @@ namespace NetSecBHL
         /// The power usage [kW]
         /// </summary>
         public PowerUsage PowerUsage;
-        private float costofUsedPower;
-        private float costofGeneratedPower;
+        private float costofUsedPowerPerKw;
+        private float costofGeneratedPowerPerKw;
         /// <summary>
         /// Gets the cost of used power.
         /// </summary>
         /// <value>
         /// The cost of used power.
         /// </value>
-        public float CostofUsedPower { get => costofUsedPower; }
+        public float CostofUsedPowerPerKw { get => costofUsedPowerPerKw; }
         /// <summary>
         /// Gets the cost of generated power.
         /// </summary>
         /// <value>
         /// The cost of generated power.
         /// </value>
-        public float CostofGeneratedPower { get => costofGeneratedPower; }
+        public float CostofGeneratedPowerPerKw { get => costofGeneratedPowerPerKw; }
         public DailyData(bool _ = true) : this()
         {
             this.Price = new Price(0, 0);
@@ -123,14 +149,14 @@ namespace NetSecBHL
         /// </summary>
         public void calculateCostofUsedPower()
         {
-            this.costofUsedPower = PowerUsage.Used / Price.total;
+            this.costofUsedPowerPerKw = Price.cost / PowerUsage.Used;
         }
         /// <summary>
         /// Calculates the cost of generated power.
         /// </summary>
         public void calculateCostofGeneratedPower()
         {
-            this.costofGeneratedPower = PowerUsage.Generated / Price.total;
+            this.costofGeneratedPowerPerKw =   Price.income / PowerUsage.Generated;
         }
     }
     /// <summary>

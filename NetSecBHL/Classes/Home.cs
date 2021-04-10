@@ -21,6 +21,10 @@ namespace NetSecBHL
         /// The temperature [◦C].
         /// </value>
         public static float Temperature { get => temperature; }
+        public static List<HourlyData> HourlyDataList { get => hourlyDataList; set => hourlyDataList = value; }
+        public static List<DailyData> DailyDataList { get => dailyDataList; set => dailyDataList = value; }
+        public static YearlyData PreviousYear { get => previousYear; set => previousYear = value; }
+        public static YearlyData CurrentYear { get => currentYear; set => currentYear = value; }
 
         /// <summary>
         /// Increases temperature by 1◦C.
