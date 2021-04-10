@@ -20,6 +20,7 @@ namespace NetSecBHL
             /// </summary>
             TypeA,
             /// <summary>
+            /// Jeżeli akumulator jest pełny:
             /// nadmiar oddawany jest do sieci, niedobór pobierany jest z sieci
             /// akumulator nie jest ładowany, ani rozładowywany
             /// </summary>
@@ -37,12 +38,14 @@ namespace NetSecBHL
             TypeD,
         }
 
-
         static void update()
         {
             
         }
 
-        
+        static HourlyData TypeA(DateTime dateTime, Weather.WeatherData weatherData)
+        {
+
+        }
     }
 }

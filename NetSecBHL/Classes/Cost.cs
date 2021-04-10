@@ -29,23 +29,80 @@ namespace NetSecBHL
         public PowerUsage PowerUsage;
         private float costofUsedPower;
         private float costofGeneratedPower;
+        /// <summary>
+        /// Gets the cost of used power.
+        /// </summary>
+        /// <value>
+        /// The cost of used power.
+        /// </value>
         public float CostofUsedPower { get => costofUsedPower; }
+        /// <summary>
+        /// Gets the cost of generated power.
+        /// </summary>
+        /// <value>
+        /// The cost of generated power.
+        /// </value>
         public float CostofGeneratedPower { get => costofGeneratedPower; }
-
-        public DailyData(bool _) : this()
+        public DailyData(bool _ = true) : this()
         {
             this.Price = new Price(0, 0);
         }
 
+        /// <summary>
+        /// Calculates the cost of used power.
+        /// </summary>
         public void calculateCostofUsedPower()
         {
             this.costofUsedPower = PowerUsage.Used / Price.total;
         }
+        /// <summary>
+        /// Calculates the cost of generated power.
+        /// </summary>
         public void calculateCostofGeneratedPower()
         {
             this.costofGeneratedPower = PowerUsage.Generated / Price.total;
         }
     }
+    public struct HourlyData
+    {
+        /// <summary>
+        /// The price [gr]
+        /// </summary>
+        public Price Price;
+        /// <summary>
+        /// The power usage [kW]
+        /// </summary>
+        public PowerUsage PowerUsage;
+        private FlowManager.Workflow optimalCostType;
+        private float costofUsedPower;
+        private float costofGeneratedPower;
+        /// <summary>
+        /// Gets the cost of used power.
+        /// </summary>
+        /// <value>
+        /// The cost of used power.
+        /// </value>
+        public float CostofUsedPower { get => costofUsedPower; }
+        /// <summary>
+        /// Gets the cost of generated power.
+        /// </summary>
+        /// <value>
+        /// The cost of generated power.
+        /// </value>
+        public float CostofGeneratedPower { get => costofGeneratedPower; }
+        /// <summary>
+        /// Gets or sets the type of the optimal cost.
+        /// </summary>
+        /// <value>
+        /// The type of the optimal cost.
+        /// </value>
+        internal FlowManager.Workflow OptimalCostType { get => optimalCostType; set => optimalCostType = value; }
+
+        public HourlyData(bool _ = true) : this()
+        {
+            this.Price = new Price(0, 0);
+        }
+    }   
     /// <summary>
     /// Price struct (unit - gr)
     /// </summary>
