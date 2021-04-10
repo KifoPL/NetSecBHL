@@ -8,12 +8,12 @@ namespace NetSecBHL
 {
     public static class Home
     {
-        private static float temperature;
-        private static int totalIncome;
-        private static int totalCost;
-        private static int totalGain;
-        private static int totalGeneratedPower;
-        private static int totalPowerUsage;
+        private static float temperature = 23;
+        private static int totalIncome = 0;
+        private static int totalCost = 0;
+        private static int totalGain = 0;
+        private static int totalGeneratedPower = 0;
+        private static int totalPowerUsage = 0;
         private static List<HourlyData> hourlyDataList = new List<HourlyData>();
         private static List<DailyData> dailyDataList = new List<DailyData>();
 
@@ -45,7 +45,19 @@ namespace NetSecBHL
         /// <param name="value">The value of temperature drop.</param>
         public static void decreaseTemperature(float value)
         {
+            if (value >= 10) throw new InvalidOperationException("Nie działa :c");
             temperature -= value;
+        }
+        /// <summary>
+        /// Calculates Total Cost, Income, Gain, Generated Power and Power Usage. ONLY USE IN PAIR WITH ADDING NEW HOURLY DATA!!!
+        /// </summary>
+        public static void calculate()
+        {
+            Home.TotalCost += Home.HourlyDataList.Last<HourlyData>().Price.cost;
+            Home.TotalIncome += Home.HourlyDataList.Last<HourlyData>().Price.income;
+            Home.TotalGain += Home.TotalIncome - Home.TotalCost;
+            Home.TotalGeneratedPower += (int)Home.HourlyDataList.Last<HourlyData>().PowerUsage.Generated;
+            Home.TotalPowerUsage += (int)Home.HourlyDataList.Last<HourlyData>().PowerUsage.Used;
         }
 
         public static void populateDailyDataList()
@@ -64,13 +76,12 @@ namespace NetSecBHL
                     else
                     {
                         dailyDataList.Add(new DailyData(hoursOfDay));
+                        lastDate = hour.DateTime;
+                        hoursOfDay = new List<HourlyData>();
+                        hoursOfDay.Add(hour);
                     }
                 }
             }
-            
         }
-
-
-
     }
 }

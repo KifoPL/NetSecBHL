@@ -87,7 +87,7 @@ namespace NetSecBHL
             /// </returns>
             public override string ToString()
             {
-                return $"{this.TimeStamp.ToShortDateString()} {this.TimeStamp.ToShortTimeString()} - Temperature: {this.temperature}◦C, Sunlight: {this.sunlight}%.";
+                return $"{this.TimeStamp.ToShortDateString()} {this.TimeStamp.ToShortTimeString()} - Temperature: {this.temperature}°C, Sunlight: {this.sunlight}%.";
             }
         }
         /// <summary>

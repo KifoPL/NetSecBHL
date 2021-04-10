@@ -197,7 +197,14 @@ namespace NetSecBHL
             {
                 powerUsage += HeatPowerData.getHeatingPower((int)weatherData.Temperature).maintainTempPower;
             }
-            Home.decreaseTemperature(1 / HeatPowerData.getHeatingPower((int)weatherData.Temperature).decreasingTime);
+
+            try
+            {
+                Home.decreaseTemperature(1 / HeatPowerData.getHeatingPower((int)weatherData.Temperature).decreasingTime);
+            }
+            catch (InvalidOperationException)
+            {
+            }
 
             return powerUsage;
         }
@@ -214,7 +221,14 @@ namespace NetSecBHL
             }
             else if (Home.Temperature > expectedTemp + 1)
             {
-                Home.decreaseTemperature(1 / HeatPowerData.getHeatingPower(expectedTemp).decreasingTime);
+
+                try
+                {
+                    Home.decreaseTemperature(1 / HeatPowerData.getHeatingPower(expectedTemp).decreasingTime);
+                }
+                catch (InvalidOperationException)
+                {
+                }
             }
         }
         /// <summary>
