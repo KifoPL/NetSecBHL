@@ -26,6 +26,7 @@ namespace NetSecBHL
         private void button1_Click(object sender, EventArgs e)
         {
             Settings.weatherDatas = Weather.generateWeather(dateTimeFrom.Value, dateTimeTo.Value);
+            MessageBox.Show("Prawidłowo wygenerowano dane.");
         }
 
         private void numericSimSpeed_ValueChanged(object sender, EventArgs e)

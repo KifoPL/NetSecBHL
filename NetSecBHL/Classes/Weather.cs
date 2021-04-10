@@ -100,7 +100,7 @@ namespace NetSecBHL
             Random random = new Random();
             WeatherData weatherData = new WeatherData(dateTime);
             //generating random temperature
-            weatherData.Temperature = random.Next(-15, 15);
+            weatherData.Temperature = random.Next(15, 30);
             if (dateTime.Hour < 6 && dateTime.Hour > 18) weatherData.Temperature -= 10;
             if (dateTime.Month <= 3 && dateTime.Month >= 10) weatherData.Temperature -= 10;
 
@@ -151,6 +151,7 @@ namespace NetSecBHL
                     {
                         weatherData.Sunlight = weatherDatas[i - 1].Sunlight + 20;
                     }
+                    if (weatherData.Sunlight > 100) weatherData.Sunlight = 100;
                 }
                 weatherDatas.Add(weatherData);
             }

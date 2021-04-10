@@ -43,7 +43,7 @@ namespace NetSecBHL
             if (!Settings.isMatrixOn)
                 lblTime.Text = $"Czas: {DateTime.Now.AddHours(HourTicks).ToShortDateString()} {DateTime.Now.AddHours(HourTicks).ToLongTimeString()}";
             else
-                lblTime.Text = $"Czas: {DateTime.Now.AddDays((Settings.weatherDatas.Last().TimeStamp - DateTime.Now).Days).AddHours(HourTicks).ToShortDateString()} {DateTime.Now.AddDays((Settings.weatherDatas.Last().TimeStamp - DateTime.Now).TotalDays).AddHours(HourTicks).ToLongTimeString()}";
+                lblTime.Text = $"Czas: {DateTime.Now.AddDays((Settings.weatherDatas.Last().TimeStamp - DateTime.Now).Days).AddHours(HourTicks).ToShortDateString()} {DateTime.Now.AddDays((Settings.weatherDatas.Last().TimeStamp - DateTime.Now).TotalDays).AddHours(HourTicks).AddSeconds(DateTime.Now.Second).ToLongTimeString()}";
 
             if (DateTime.Now.Minute == 0 && DateTime.Now.Second == 0)
                 HourTimer_Tick(sender, e);
@@ -85,6 +85,8 @@ namespace NetSecBHL
             if (dialogResult == DialogResult.OK)
             {
                 Settings.isMatrixOn = true;
+                SecondTimer.Enabled = true;
+                HourTimer.Enabled = true;
                 PowerCell.MaxCharge = Settings.maxStoredPower;
                 PowerCell.MaxChargingSpeed = Settings.maxChargePower;
                 PowerCell.MaxUsageCharge = Settings.maxUsagePower;
@@ -211,7 +213,7 @@ namespace NetSecBHL
                 stashing += $"{daily.TimeStamp.Date.ToShortDateString()}, Zużycie: {daily.PowerUsage.Used} kWh, Produkcja: {daily.PowerUsage.Generated} kWh\n";
             }
             MessageBox.Show(stashing, $"Dni, w których oddajemy energię: {stashingList.Count}");
-            MessageBox.Show(collecting, $"Dni, w których pobieramy energię: {collectingList.Count}");
+            //MessageBox.Show(collecting, $"Dni, w których pobieramy energię: {collectingList.Count}");
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
