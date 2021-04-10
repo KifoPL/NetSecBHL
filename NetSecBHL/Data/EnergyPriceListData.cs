@@ -8,6 +8,15 @@ namespace NetSecBHL
 {
     public static class EnergyPriceListData
     {
+        private static Price optimalPrize = new Price(100, 50);
+        /// <summary>
+        /// Gets or sets the optimal prize (meaning if the optimal prize is met, the algorithm will switch to Type B|C : Type D otherwise.
+        /// </summary>
+        /// <value>
+        /// The optimal, threshold prize.
+        /// </value>
+        public static Price OptimalPrize { get => optimalPrize; set => optimalPrize = value; }
+
         /// <summary>
         /// Gets the Price of energy based on date. (unit - gr)
         /// </summary>

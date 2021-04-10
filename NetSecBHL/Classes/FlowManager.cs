@@ -38,10 +38,6 @@ namespace NetSecBHL
             TypeD,
         }
 
-        static void update()
-        {
-            
-        }
         /// <summary>
         /// braki w mocy chwilowej automatycznie uzupełniane są z sieci
         /// nadmiar wykorzystywany jest do doładowania akumulatora
@@ -63,7 +59,7 @@ namespace NetSecBHL
                 
                 hourlyData.Price.cost = 0;
                 float PowerCellCharging = Math.Min(hourlyData.PowerUsage.Total, PowerCell.MaxChargingSpeed);
-                if (PowerCell.CurrentCharge + PowerCellCharging <= 7)
+                if (PowerCell.CurrentCharge + PowerCellCharging <= PowerCell.MaxCharge)
                 {
                     PowerCell.addCharge(PowerCellCharging);
                     if (PowerCell.MaxChargingSpeed < hourlyData.PowerUsage.Total)
@@ -87,7 +83,30 @@ namespace NetSecBHL
         }
         static HourlyData TypeB(Weather.WeatherData weatherData)
         {
+            HourlyData hourlyData = new HourlyData();
+            hourlyData.DateTime = weatherData.TimeStamp;
 
+
+            float powerUsage = getHourlyPowerUsage(weatherData) / 5;
+            float powerProvidedByPhotovoltaics = PhotovoltaicsEfficiencyData.getPhotovoltaicsPower(weatherData.TimeStamp, weatherData.GetSunlightEnum(weatherData.Sunlight));
+            hourlyData.PowerUsage.Generated = powerProvidedByPhotovoltaics;
+            hourlyData.PowerUsage.Used = powerUsage;
+            hourlyData.PowerUsage.calculateTotal();
+
+            if (powerProvidedByPhotovoltaics > powerUsage)
+            {
+
+                hourlyData.Price.cost = 0;
+                hourlyData.Price.income = (int)(EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp).income * (powerProvidedByPhotovoltaics - powerUsage));
+                hourlyData.Price.calculateTotal();
+            }
+            else
+            {
+                float missingPower = powerUsage - powerProvidedByPhotovoltaics;
+                hourlyData.Price.income = 0;
+                hourlyData.Price.cost = (int)(EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp).cost * missingPower);
+            }
+            return hourlyData;
         }
         static HourlyData TypeC(Weather.WeatherData weatherData)
         {
@@ -103,13 +122,16 @@ namespace NetSecBHL
             if (powerUsage > powerProvidedByPhotovoltaics)
             {
                 Price powerPriceForKw = EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp);
-                hourlyData.Price = new Price((int)(PowerCell.MaxChargingSpeed * powerPriceForKw.cost), 0);
+                float powerChargeLoadValue = Math.Min(PowerCell.MaxCharge, PowerCell.CurrentCharge + PowerCell.MaxChargingSpeed) - PowerCell.CurrentCharge;
+                PowerCell.addCharge(powerChargeLoadValue);
+                hourlyData.Price = new Price((int)(powerChargeLoadValue+ powerUsage - powerProvidedByPhotovoltaics) * powerPriceForKw.cost,0);
             }
             else if (powerUsage < powerProvidedByPhotovoltaics)
             {
-                PowerCell.addCharge(Math.Min(PowerCell.MaxCharge,PowerCell.CurrentCharge+PowerCell.MaxChargingSpeed));
+                float powerChargeLoadValue = Math.Min(PowerCell.MaxCharge, PowerCell.CurrentCharge + PowerCell.MaxChargingSpeed) - PowerCell.CurrentCharge;
+                PowerCell.addCharge(powerChargeLoadValue);
                 Price powerPriceForKw = EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp);
-                hourlyData.Price = new Price((int)(PowerCell.MaxChargingSpeed * powerPriceForKw.cost), 0);
+                hourlyData.Price = new Price((int)(powerChargeLoadValue) * powerPriceForKw.cost, 0);
             }
             hourlyData.OptimalCostType = Workflow.TypeC;
             return hourlyData;
@@ -191,6 +213,33 @@ namespace NetSecBHL
             else if (Home.Temperature > expectedTemp + 1)
             {
                 Home.decreaseTemperature(1 / HeatPowerData.getHeatingPower(expectedTemp).decreasingTime);
+            }
+        }
+        private static void whichType(Weather.WeatherData weatherData)
+        {
+            float powerUsage = getHourlyPowerUsage(weatherData) / 5;
+            float powerProvidedByPhotovoltaics = PhotovoltaicsEfficiencyData.getPhotovoltaicsPower(weatherData.TimeStamp, weatherData.GetSunlightEnum(weatherData.Sunlight));
+            float PowerCellCharging = Math.Min(powerProvidedByPhotovoltaics - powerUsage, PowerCell.MaxChargingSpeed);
+
+            if (powerProvidedByPhotovoltaics > powerUsage)
+            {
+                if (PowerCell.CurrentCharge + PowerCellCharging >= PowerCell.MaxCharge)
+                {
+                    TypeB(weatherData);
+                }
+                else TypeA(weatherData);
+            }
+            else
+            {
+                if (EnergyPriceListData.getEnergyPrice(Calendar.WhatDay(weatherData.TimeStamp), weatherData.TimeStamp).cost <= EnergyPriceListData.OptimalPrize.cost)
+                {
+                    if (PowerCell.CurrentCharge + PowerCellCharging >= PowerCell.MaxCharge)
+                    {
+                        TypeB(weatherData);
+                    }
+                    else TypeC(weatherData);
+                }
+                else TypeD(weatherData);
             }
         }
     }

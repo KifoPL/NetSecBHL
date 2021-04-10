@@ -6,19 +6,4 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Update="DataBase.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DataBase.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="DataBase.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataBase.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
 </Project>
