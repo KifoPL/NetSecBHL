@@ -33,6 +33,8 @@ namespace NetSecBHL
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.label1 = new System.Windows.Forms.Label();
             this.Panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.lblSimulation = new System.Windows.Forms.Label();
             this.lblSunlight = new System.Windows.Forms.Label();
             this.lblCurrentTemperature = new System.Windows.Forms.Label();
@@ -87,6 +89,8 @@ namespace NetSecBHL
             // Panel1
             // 
             this.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Panel1.Controls.Add(this.button2);
+            this.Panel1.Controls.Add(this.button1);
             this.Panel1.Controls.Add(this.lblSimulation);
             this.Panel1.Controls.Add(this.lblSunlight);
             this.Panel1.Controls.Add(this.lblCurrentTemperature);
@@ -122,6 +126,38 @@ namespace NetSecBHL
             this.Panel1.Name = "Panel1";
             this.Panel1.Size = new System.Drawing.Size(484, 394);
             this.Panel1.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.BackColor = System.Drawing.Color.BurlyWood;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button2.Location = new System.Drawing.Point(184, 169);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(117, 34);
+            this.button2.TabIndex = 32;
+            this.button2.TabStop = false;
+            this.button2.Text = "Wakacje";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.BackColor = System.Drawing.Color.BurlyWood;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(9, 317);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(117, 34);
+            this.button1.TabIndex = 31;
+            this.button1.TabStop = false;
+            this.button1.Text = "ROZLICZ";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblSimulation
             // 
@@ -209,23 +245,28 @@ namespace NetSecBHL
             this.btnDateTime.Name = "btnDateTime";
             this.btnDateTime.Size = new System.Drawing.Size(117, 34);
             this.btnDateTime.TabIndex = 23;
+            this.btnDateTime.TabStop = false;
             this.btnDateTime.Text = "GODZINA";
             this.btnDateTime.UseVisualStyleBackColor = false;
+            this.btnDateTime.Click += new System.EventHandler(this.btnDateTime_Click);
             // 
             // btnMatrix
             // 
-            this.btnMatrix.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnMatrix.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnMatrix.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMatrix.BackColor = System.Drawing.Color.Wheat;
             this.btnMatrix.FlatAppearance.BorderSize = 0;
             this.btnMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMatrix.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnMatrix.Location = new System.Drawing.Point(9, 317);
+            this.btnMatrix.Location = new System.Drawing.Point(184, 119);
             this.btnMatrix.Name = "btnMatrix";
             this.btnMatrix.Size = new System.Drawing.Size(117, 34);
             this.btnMatrix.TabIndex = 22;
-            this.btnMatrix.Text = "MATRIX";
+            this.btnMatrix.TabStop = false;
             this.btnMatrix.UseVisualStyleBackColor = false;
             this.btnMatrix.Click += new System.EventHandler(this.btnMatrix_Click);
+            this.btnMatrix.MouseEnter += new System.EventHandler(this.btnMatrix_MouseEnter);
+            this.btnMatrix.MouseLeave += new System.EventHandler(this.btnMatrix_MouseLeave);
             // 
             // lblCurrentGain
             // 
@@ -350,13 +391,13 @@ namespace NetSecBHL
             // 
             // lblTotalGain
             // 
-            this.lblTotalGain.AutoSize = true;
             this.lblTotalGain.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotalGain.Location = new System.Drawing.Point(9, 203);
             this.lblTotalGain.Name = "lblTotalGain";
-            this.lblTotalGain.Size = new System.Drawing.Size(63, 19);
+            this.lblTotalGain.Size = new System.Drawing.Size(117, 19);
             this.lblTotalGain.TabIndex = 10;
             this.lblTotalGain.Text = "### zł";
+            this.lblTotalGain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
@@ -370,13 +411,13 @@ namespace NetSecBHL
             // 
             // lblTotalIncome
             // 
-            this.lblTotalIncome.AutoSize = true;
             this.lblTotalIncome.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotalIncome.Location = new System.Drawing.Point(9, 165);
             this.lblTotalIncome.Name = "lblTotalIncome";
-            this.lblTotalIncome.Size = new System.Drawing.Size(63, 19);
+            this.lblTotalIncome.Size = new System.Drawing.Size(117, 19);
             this.lblTotalIncome.TabIndex = 8;
             this.lblTotalIncome.Text = "### zł";
+            this.lblTotalIncome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
@@ -390,13 +431,13 @@ namespace NetSecBHL
             // 
             // lblTotalCost
             // 
-            this.lblTotalCost.AutoSize = true;
             this.lblTotalCost.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotalCost.Location = new System.Drawing.Point(9, 127);
             this.lblTotalCost.Name = "lblTotalCost";
-            this.lblTotalCost.Size = new System.Drawing.Size(63, 19);
+            this.lblTotalCost.Size = new System.Drawing.Size(117, 19);
             this.lblTotalCost.TabIndex = 6;
             this.lblTotalCost.Text = "### zł";
+            this.lblTotalCost.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
@@ -410,13 +451,13 @@ namespace NetSecBHL
             // 
             // lblTotalGeneratedPower
             // 
-            this.lblTotalGeneratedPower.AutoSize = true;
             this.lblTotalGeneratedPower.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotalGeneratedPower.Location = new System.Drawing.Point(9, 89);
             this.lblTotalGeneratedPower.Name = "lblTotalGeneratedPower";
-            this.lblTotalGeneratedPower.Size = new System.Drawing.Size(63, 19);
+            this.lblTotalGeneratedPower.Size = new System.Drawing.Size(117, 19);
             this.lblTotalGeneratedPower.TabIndex = 4;
             this.lblTotalGeneratedPower.Text = "### kW";
+            this.lblTotalGeneratedPower.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -430,13 +471,13 @@ namespace NetSecBHL
             // 
             // lblTotalPowerUsage
             // 
-            this.lblTotalPowerUsage.AutoSize = true;
             this.lblTotalPowerUsage.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotalPowerUsage.Location = new System.Drawing.Point(9, 51);
             this.lblTotalPowerUsage.Name = "lblTotalPowerUsage";
-            this.lblTotalPowerUsage.Size = new System.Drawing.Size(63, 19);
+            this.lblTotalPowerUsage.Size = new System.Drawing.Size(117, 19);
             this.lblTotalPowerUsage.TabIndex = 2;
             this.lblTotalPowerUsage.Text = "### kW";
+            this.lblTotalPowerUsage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
@@ -498,6 +539,7 @@ namespace NetSecBHL
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NetSec BHL";
             this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.Panel1.ResumeLayout(false);
             this.Panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -543,6 +585,8 @@ namespace NetSecBHL
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblSimulation;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

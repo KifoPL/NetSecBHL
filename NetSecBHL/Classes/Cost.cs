@@ -72,6 +72,7 @@ namespace NetSecBHL
         /// The power usage [kW]
         /// </summary>
         public PowerUsage PowerUsage;
+        public DateTime TimeStamp;
         private float costofUsedPowerPerKw;
         private float costofGeneratedPowerPerKw;
         /// <summary>
@@ -97,6 +98,7 @@ namespace NetSecBHL
         {
             this.Price = new Price(0, 0);
             this.PowerUsage = new PowerUsage(0, 0);
+            TimeStamp = hourlyDataList[0].DateTime.Date;
             foreach(var hour in hourlyDataList)
             {
                 Price += hour.Price;

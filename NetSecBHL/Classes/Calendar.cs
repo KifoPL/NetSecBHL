@@ -23,7 +23,7 @@ namespace NetSecBHL
         /// <summary>
         /// Used in Holidays list
         /// </summary>
-        private struct Day
+        public struct Day
         {
             public DateTime Date;
             public DayType DayType;
@@ -51,7 +51,7 @@ namespace NetSecBHL
         /// <summary>
         /// The holidays calendar, this contains user-defined day types
         /// </summary>
-        private static List<Day> HolidaysCalendar = new List<Day>();
+        public static List<Day> HolidaysCalendar = new List<Day>();
 
         /// <summary>
         /// What type of day is it

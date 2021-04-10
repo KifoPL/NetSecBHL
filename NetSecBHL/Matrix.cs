@@ -13,6 +13,11 @@ namespace NetSecBHL
 {
     public partial class Matrix : Form
     {
+        public void checkState()
+        {
+            if (Settings.isMatrixOn) checkBox1.Checked = true;
+            else checkBox1.Checked = false;
+        }
         public Matrix()
         {
             InitializeComponent();

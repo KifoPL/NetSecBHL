@@ -14,5 +14,6 @@ namespace NetSecBHL.Classes
         public static int maxStoredPower = 7;
         public static int maxChargePower = 1;
         public static int maxUsagePower = 2;
+        public static DateTime SelectedHour = new DateTime();
     }
 }
