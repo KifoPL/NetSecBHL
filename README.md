@@ -6,7 +6,7 @@
 
 > Przyszła data wynika z symulacji pogody w przyśpieszonym tempie.
 
-> * Pełna dokumentacja dostępna jest w [pliku](params/Dokumentacja z przebiegu prac.pdf)
+> * Pełna dokumentacja dostępna jest w [pliku](params/Dokumentacja_z_przebiegu_prac.pdf)
 
 ## Treść zadania konkursowego
 Celem jest optymalizacja poboru energii elektrycznej z sieci przez nowoczesny dom (lub 
